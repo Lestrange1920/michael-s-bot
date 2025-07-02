@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Michael's Bot for Important Information</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; }
+    h1 { text-align: center; }
+    #chat-container { border: 1px solid #ccc; padding: 10px; min-height: 200px; max-height: 400px; overflow-y: auto; }
+    #user-input { width: 80%; padding: 10px; }
+    #send-btn { width: 18%; padding: 10px; }
+  </style>
+</head>
+<body>
+  <h1>Michael's Bot for Important Information</h1>
+  <h2>Ask me anything about important dates and special occasions for the Purposeful team!</h2>
+  <div id="chat-container"></div>
+  <input type="text" id="user-input" placeholder="Type your message...">
+  <button id="send-btn">Send</button>
+
+  <script>
+    const chatContainer = document.getElementById('chat-container');
+    const userInput = document.getElementById('user-input');
+    const sendBtn = document.getElementById('send-btn');
+
+    const birthdayReminders = [
+      "Just a friendly reminder that Libby's birthday is coming up on January 14th! 🎂",
+      "Don't forget, January 14th is a special day - it's Libby's birthday! 🎉",
+      "Mark your calendar for January 14th, because that's when we celebrate Libby's birthday! 🎈"
+    ];
+
+    const birthdayMessages = [
+      "Happy birthday, Libby! 🎂 Wishing you a fantastic day filled with joy and laughter. Thanks for being such an amazing colleague!",
+      "Sending you the warmest birthday wishes, Libby! 🎉 May your special day be as wonderful as you are. Enjoy your celebration!",
+      "Happy birthday to an incredible team member! 🎈 Libby, your hard work and positive attitude inspire us all. Have a great birthday!"
+    ];
+
+    function getBotResponse() {
+      const randomReminder = birthdayReminders[Math.floor(Math.random() * birthdayReminders.length)];
+      const randomMessage = birthdayMessages[Math.floor(Math.random() * birthdayMessages.length)];
+      return `<p><strong>Bot:</strong> ${randomReminder}</p><p><strong>Bot:</strong> Here's a suggestion for a birthday message you could send:</p><p>"${randomMessage}"</p>`;
+    }
+
+    function sendMessage() {
+      const userMessage = userInput.value.trim();
+      if (userMessage !== '') {
+        const userMessageElement = document.createElement('p');
+        userMessageElement.innerHTML = `<strong>You:</strong> ${userMessage}`;
+        chatContainer.appendChild(userMessageElement);
+
+        const botResponseElement = document.createElement('div');
+        botResponseElement.innerHTML = getBotResponse();
+        chatContainer.appendChild(botResponseElement);
+
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+        userInput.value = '';
+      }
+    }
+
+    sendBtn.addEventListener('click', sendMessage);
+    userInput.addEventListener('keyup', (event) => {
+      if (event.key === 'Enter') {
+        sendMessage();
+      }
+    });
+  </script>
+</body>
+</html>
